@@ -1,0 +1,75 @@
+double_buffer yes
+update_interval 2
+background yes
+
+own_window yes
+
+# own_window_type desktop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+#own_window_type override
+own_window_argb_visual true
+own_window_argb_value 160
+out_to_console no
+own_window_transparent no
+own_window_class conky-semi
+use_xft yes
+xftfont cure:size=10
+
+#use_xft yes
+#xftfont Sansation:size=9
+xftfont Rounded Elegance:size=10
+xftalpha 0
+update_interval 2
+cpu_avg_samples 2
+net_avg_samples 2
+double_buffer yes
+maximum_width 320
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+stippled_borders 1
+border_width 0
+default_color white
+default_shade_color white
+default_outline_color white
+alignment top_right
+
+use_spacer left
+no_buffers yes
+uppercase no
+
+color0 white
+
+color2 white
+color3 1793d0
+
+
+pad_percents 2
+top_name_width 10
+minimum_size 320 100
+
+gap_x 380
+gap_y 230
+
+TEXT
+${image img/earth_network.png -p 0,0 -s 30x30}
+${offset 35}${font Good Times:size=12}${color Tan1}NETWORK DEVICE ${color}${hr 2}${font}
+IP address: ${texeci 10000 wget -q -O - checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//'}
+
+${if_match "${addr docker0}"!="No Address"}${goto 14}Interface: ${color3}docker0${color}${goto 160}Local IP:${addr docker0}
+${goto 14}${color1}Sending: ${color3}${upspeed docker0}${color1}${alignr}${goto 180}${color1}Receiving:${color1} ${color3}${downspeed docker0}${color}
+${goto 14}${color1}Sent :${color1} ${color2}${totalup docker0}${color1}${alignr}${goto 180}${color1}Received :${color}${color2}${totaldown docker0}${color1}
+${goto 14}${upspeedgraph docker0  50,140 000000 FF0000}${goto 180}${downspeedgraph docker0 50,140 000000 00FF00}
+${voffset -5}${hr 1}
+${endif}${if_match "${addr eno1}"!="No Address"}${goto 14}Interface: ${color3}eno1${color}${goto 160}Local IP:${addr eno1}
+${goto 14}${color1}Sending: ${color3}${upspeed eno1}${color1}${alignr}${goto 180}${color1}Receiving:${color1} ${color3}${downspeed eno1}${color}
+${goto 14}${color1}Sent :${color1} ${color2}${totalup eno1}${color1}${alignr}${goto 180}${color1}Received :${color}${color2}${totaldown eno1}${color1}
+${goto 14}${upspeedgraph eno1  50,140 000000 FF0000}${goto 180}${downspeedgraph eno1 50,140 000000 00FF00}
+${voffset -5}${hr 1}
+${endif}${if_match "${addr pan1}"!="No Address"}${goto 14}Interface: ${color3}pan1${color}${goto 160}Local IP:${addr pan1}
+${goto 14}${color1}Sending: ${color3}${upspeed pan1}${color1}${alignr}${goto 180}${color1}Receiving:${color1} ${color3}${downspeed pan1}${color}
+${goto 14}${color1}Sent :${color1} ${color2}${totalup pan1}${color1}${alignr}${goto 180}${color1}Received :${color}${color2}${totaldown pan1}${color1}
+${goto 14}${upspeedgraph pan1  50,140 000000 FF0000}${goto 180}${downspeedgraph pan1 50,140 000000 00FF00}
+${voffset -5}${hr 1}
+${endif}
