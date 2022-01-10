@@ -37,7 +37,7 @@ CPUCore=float(CPUCore)/10
 TemperatureCTL="sensors | grep Tctl | awk '{ print $2}'"
 TemperatureDIE="sensors | grep Tdie | awk '{ print $2}'"
 CPUPower = "sensors | grep SVI2_P_Core | awk '{ print $2}'"
-
+Fans=r"""sensors | grep fan | tail -n 4 | awk '{ print $2}' | awk -v d=" RPM\t" '{s=(NR==1?s:s d)$0; str=s" RPM"}END{print str}'"""
 
 # determine installed language
 #Language_installed=os.popen("locale | grep LANG").read()
@@ -84,6 +84,7 @@ ${font}${color}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/mo
 ${color lightgrey}"""+Temperature[Language]+""" DIE ${texeci 10 """+TemperatureDIE+"""}
 ${color lightgrey}"""+Temperature[Language]+""" CTL ${texeci 10 """+TemperatureCTL+"""}
 ${color lightgrey}CPU Power ${texeci 10 """+CPUPower+"""} W
+${color lightgrey}Fans ${texeci 10 """+Fans+"""}
 ${alignc}${color #000000}${cpugraph 20,318 000000 FFFFFF}${color}
 """
 
@@ -108,7 +109,7 @@ for Cores in range(int(NumberOfCores)):
     CpuUsage="${goto 50} : ${cpu cpu"+str(Cores+1)+"}%"
     CpuGraph=f'${{goto 96}}${{cpubar cpu{Cores+1} 11,121}}'
     CpuFrequency="${goto 230}${color}${freq "+str(Cores+1)+"} MHz"
-    BackgroundImage="${image img/trans-bg240.png -p 93,"+str(Height+27)+" -s 121x11}"+"\n"
+    BackgroundImage="${image img/trans-bg240.png -p 93,"+str(Height+42)+" -s 121x11}"+"\n"
 
     List.append(Comment)
     List.append(CpuName)

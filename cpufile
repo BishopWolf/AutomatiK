@@ -62,36 +62,37 @@ ${font}${color}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/mo
 ${color lightgrey}Temperature  DIE ${texeci 10 sensors | grep Tdie | awk '{ print $2}'}
 ${color lightgrey}Temperature  CTL ${texeci 10 sensors | grep Tctl | awk '{ print $2}'}
 ${color lightgrey}CPU Power ${texeci 10 sensors | grep SVI2_P_Core | awk '{ print $2}'} W
+${color lightgrey}Fans ${texeci 10 sensors | grep fan | tail -n 4 | awk '{ print $2}' | awk -v d=" RPM\t" '{s=(NR==1?s:s d)$0; str=s" RPM"}END{print str}'}
 ${alignc}${color #000000}${cpugraph 20,318 000000 FFFFFF}${color}
 # CPU1
-Cpu  1${goto 50} : ${cpu cpu1}%${goto 96}${cpubar cpu1 11,121}${goto 230}${color}${freq 1} MHz${image img/trans-bg240.png -p 93,137 -s 121x11}
+Cpu  1${goto 50} : ${cpu cpu1}%${goto 96}${cpubar cpu1 11,121}${goto 230}${color}${freq 1} MHz${image img/trans-bg240.png -p 93,152 -s 121x11}
 # CPU2
-Cpu  2${goto 50} : ${cpu cpu2}%${goto 96}${cpubar cpu2 11,121}${goto 230}${color}${freq 2} MHz${image img/trans-bg240.png -p 93,152 -s 121x11}
+Cpu  2${goto 50} : ${cpu cpu2}%${goto 96}${cpubar cpu2 11,121}${goto 230}${color}${freq 2} MHz${image img/trans-bg240.png -p 93,167 -s 121x11}
 # CPU3
-Cpu  3${goto 50} : ${cpu cpu3}%${goto 96}${cpubar cpu3 11,121}${goto 230}${color}${freq 3} MHz${image img/trans-bg240.png -p 93,167 -s 121x11}
+Cpu  3${goto 50} : ${cpu cpu3}%${goto 96}${cpubar cpu3 11,121}${goto 230}${color}${freq 3} MHz${image img/trans-bg240.png -p 93,182 -s 121x11}
 # CPU4
-Cpu  4${goto 50} : ${cpu cpu4}%${goto 96}${cpubar cpu4 11,121}${goto 230}${color}${freq 4} MHz${image img/trans-bg240.png -p 93,182 -s 121x11}
+Cpu  4${goto 50} : ${cpu cpu4}%${goto 96}${cpubar cpu4 11,121}${goto 230}${color}${freq 4} MHz${image img/trans-bg240.png -p 93,197 -s 121x11}
 # CPU5
-Cpu  5${goto 50} : ${cpu cpu5}%${goto 96}${cpubar cpu5 11,121}${goto 230}${color}${freq 5} MHz${image img/trans-bg240.png -p 93,197 -s 121x11}
+Cpu  5${goto 50} : ${cpu cpu5}%${goto 96}${cpubar cpu5 11,121}${goto 230}${color}${freq 5} MHz${image img/trans-bg240.png -p 93,212 -s 121x11}
 # CPU6
-Cpu  6${goto 50} : ${cpu cpu6}%${goto 96}${cpubar cpu6 11,121}${goto 230}${color}${freq 6} MHz${image img/trans-bg240.png -p 93,212 -s 121x11}
+Cpu  6${goto 50} : ${cpu cpu6}%${goto 96}${cpubar cpu6 11,121}${goto 230}${color}${freq 6} MHz${image img/trans-bg240.png -p 93,227 -s 121x11}
 # CPU7
-Cpu  7${goto 50} : ${cpu cpu7}%${goto 96}${cpubar cpu7 11,121}${goto 230}${color}${freq 7} MHz${image img/trans-bg240.png -p 93,227 -s 121x11}
+Cpu  7${goto 50} : ${cpu cpu7}%${goto 96}${cpubar cpu7 11,121}${goto 230}${color}${freq 7} MHz${image img/trans-bg240.png -p 93,242 -s 121x11}
 # CPU8
-Cpu  8${goto 50} : ${cpu cpu8}%${goto 96}${cpubar cpu8 11,121}${goto 230}${color}${freq 8} MHz${image img/trans-bg240.png -p 93,242 -s 121x11}
+Cpu  8${goto 50} : ${cpu cpu8}%${goto 96}${cpubar cpu8 11,121}${goto 230}${color}${freq 8} MHz${image img/trans-bg240.png -p 93,257 -s 121x11}
 # CPU9
-Cpu  9${goto 50} : ${cpu cpu9}%${goto 96}${cpubar cpu9 11,121}${goto 230}${color}${freq 9} MHz${image img/trans-bg240.png -p 93,257 -s 121x11}
+Cpu  9${goto 50} : ${cpu cpu9}%${goto 96}${cpubar cpu9 11,121}${goto 230}${color}${freq 9} MHz${image img/trans-bg240.png -p 93,272 -s 121x11}
 # CPU10
-Cpu  10${goto 50} : ${cpu cpu10}%${goto 96}${cpubar cpu10 11,121}${goto 230}${color}${freq 10} MHz${image img/trans-bg240.png -p 93,272 -s 121x11}
+Cpu  10${goto 50} : ${cpu cpu10}%${goto 96}${cpubar cpu10 11,121}${goto 230}${color}${freq 10} MHz${image img/trans-bg240.png -p 93,287 -s 121x11}
 # CPU11
-Cpu  11${goto 50} : ${cpu cpu11}%${goto 96}${cpubar cpu11 11,121}${goto 230}${color}${freq 11} MHz${image img/trans-bg240.png -p 93,287 -s 121x11}
+Cpu  11${goto 50} : ${cpu cpu11}%${goto 96}${cpubar cpu11 11,121}${goto 230}${color}${freq 11} MHz${image img/trans-bg240.png -p 93,302 -s 121x11}
 # CPU12
-Cpu  12${goto 50} : ${cpu cpu12}%${goto 96}${cpubar cpu12 11,121}${goto 230}${color}${freq 12} MHz${image img/trans-bg240.png -p 93,302 -s 121x11}
+Cpu  12${goto 50} : ${cpu cpu12}%${goto 96}${cpubar cpu12 11,121}${goto 230}${color}${freq 12} MHz${image img/trans-bg240.png -p 93,317 -s 121x11}
 # CPU13
-Cpu  13${goto 50} : ${cpu cpu13}%${goto 96}${cpubar cpu13 11,121}${goto 230}${color}${freq 13} MHz${image img/trans-bg240.png -p 93,317 -s 121x11}
+Cpu  13${goto 50} : ${cpu cpu13}%${goto 96}${cpubar cpu13 11,121}${goto 230}${color}${freq 13} MHz${image img/trans-bg240.png -p 93,332 -s 121x11}
 # CPU14
-Cpu  14${goto 50} : ${cpu cpu14}%${goto 96}${cpubar cpu14 11,121}${goto 230}${color}${freq 14} MHz${image img/trans-bg240.png -p 93,332 -s 121x11}
+Cpu  14${goto 50} : ${cpu cpu14}%${goto 96}${cpubar cpu14 11,121}${goto 230}${color}${freq 14} MHz${image img/trans-bg240.png -p 93,347 -s 121x11}
 # CPU15
-Cpu  15${goto 50} : ${cpu cpu15}%${goto 96}${cpubar cpu15 11,121}${goto 230}${color}${freq 15} MHz${image img/trans-bg240.png -p 93,347 -s 121x11}
+Cpu  15${goto 50} : ${cpu cpu15}%${goto 96}${cpubar cpu15 11,121}${goto 230}${color}${freq 15} MHz${image img/trans-bg240.png -p 93,362 -s 121x11}
 # CPU16
-Cpu  16${goto 50} : ${cpu cpu16}%${goto 96}${cpubar cpu16 11,121}${goto 230}${color}${freq 16} MHz${image img/trans-bg240.png -p 93,362 -s 121x11}
+Cpu  16${goto 50} : ${cpu cpu16}%${goto 96}${cpubar cpu16 11,121}${goto 230}${color}${freq 16} MHz${image img/trans-bg240.png -p 93,377 -s 121x11}
