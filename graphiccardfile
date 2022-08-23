@@ -58,17 +58,17 @@ TEXT
 ${image img/graphic_card.png -p 0,0 -s 30x30}
 ${offset 35}${font Good Times:size=12}${color Tan1}GPU INFORMATION ${color}${hr 2}${font}
 ${color yellow}${font Ubuntu-Title:size=11}Board name:					 AMD Radeon RX 570 Series${font}${color}
-${goto 80} :DisplayPort-1${alignr} 1920x1080
-${goto 80} :HDMI-A-0${alignr} 1920x1080
+${goto 80} :XWAYLAND0${alignr} 1920x1080
+${goto 80} :XWAYLAND1${alignr} 1680x1050
 
 ${goto 80}Driver :${alignr}amdgpu
 ${goto 80}Card Name :${alignr}Ellesmere
-${goto 80}Card GPU :${alignr}POLARIS10
+${goto 80}Card GPU :${alignr}polaris10
 ${goto 80}Card Memory :${alignr}8192MB
 ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently available dedicated video memory:' | awk '{ print $6}'} MB
 ${goto 80}fanspeed :${alignr}${execi 5 sensors | grep fan1 | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
-${goto 80}Temperature: ${alignr}${execi 5 sensors | grep edge | head -n 2 | tail -n 1 | awk '{ print $2}'}
-${goto 80}Power: ${alignr}${execi 5 sensors | grep power1 | head -n 2 | tail -n 1 | awk '{ print $2}'} W
+${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $2}'}
+${goto 80}Power: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $3}'}
 ${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{print $10}'}
 ${image img/Ati_logo.png -p 5,55 }
 ${image img/Ati_logo.png -p 5,55 }

@@ -62,7 +62,7 @@ ${font}${color}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/mo
 ${color lightgrey}Temperature  DIE ${texeci 10 sensors | grep Tdie | awk '{ print $2}'}
 ${color lightgrey}Temperature  CTL ${texeci 10 sensors | grep Tctl | awk '{ print $2}'}
 ${color lightgrey}CPU Power ${texeci 10 sensors | grep SVI2_P_Core | awk '{ print $2}'} W
-${color lightgrey}Fans ${texeci 10 sensors | grep fan | tail -n 4 | awk '{ print $2}' | awk -v d=" RPM\t" '{s=(NR==1?s:s d)$0; str=s" RPM"}END{print str}'}
+${color lightgrey}Fans ${texeci 10 sensors | grep fan | awk '{ print $2}' | awk '($0 > 0){print}' | awk -v d=" RPM " '{s=(NR==1?s:s d)$0; str=s" RPM"}END{print str}'}
 ${alignc}${color #000000}${cpugraph 20,318 000000 FFFFFF}${color}
 # CPU1
 Cpu  1${goto 50} : ${cpu cpu1}%${goto 96}${cpubar cpu1 11,121}${goto 230}${color}${freq 1} MHz${image img/trans-bg240.png -p 93,152 -s 121x11}

@@ -103,9 +103,9 @@ number = 0
 # print ConnectorToDisplay
 Connector_List = []
 # ''.join(list).
-for i in Connectors:
+for i,r in zip(Connectors, Resolutions):
     ConnectorToDisplay_TEXT = """${goto 80}""" + \
-        """ :"""+i+"""${alignr} """+Resolution+"\n"
+        """ :"""+i+"""${alignr} """+r+"\n"
     # print ConnectorToDisplay_TEXT
     Connector_List.append(ConnectorToDisplay_TEXT)
     number = number+1
@@ -142,8 +142,8 @@ ${goto 80}Card GPU :${alignr}"""+CardGPU+"""
 ${goto 80}Card Memory :${alignr}"""+CardMemory+"""
 ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently available dedicated video memory:' | awk '{ print $6}'} MB
 ${goto 80}fanspeed :${alignr}${execi 5 sensors | grep fan1 | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
-${goto 80}Temperature: ${alignr}${execi 5 sensors | grep edge | head -n 2 | tail -n 1 | awk '{ print $2}'}
-${goto 80}Power: ${alignr}${execi 5 sensors | grep power1 | head -n 2 | tail -n 1 | awk '{ print $2}'} W
+${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $2}'}
+${goto 80}Power: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $3}'}
 ${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{print $10}'}
 ${image img/Ati_logo.png -p 5,55 }
 """

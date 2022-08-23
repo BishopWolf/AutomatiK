@@ -57,8 +57,8 @@ ${offset 35}${font Good Times:size=12}${color Tan1}SYSTEM INFORMATION ${color}${
 ${goto 80}${color yellow}${font Ubuntu-Title:size=11}"manjaro linux"${font}${color} | KDE
 ${goto 80}alex@alex-b450aoruselite
 ${goto 80}Kernel: $kernel $machine
-${goto 80}Session type : X11
-${goto 80}DE: KDE 5.89.0 Plasma 5.23.4
+${goto 80}Session type : WAYLAND
+${goto 80}DE: KDE 5.97.0 Plasma 5.25.4
 ${goto 80}Uptime:$uptime
 #${font DJB Get Digital:size=30}${tab 90}${time %H:%M:%S}
 ${image img/logo-manjaro.png -p 5,40 -s 64x64}
