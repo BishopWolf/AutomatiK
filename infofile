@@ -27,12 +27,12 @@ maximum_width 320
 draw_shades no
 draw_outline no
 draw_borders no
-draw_graph_borders yes
+draw_graph_borders no
 stippled_borders 1
 border_width 0
 default_color white
 default_shade_color white
-default_outline_color white
+default_outline_color 000000
 alignment top_right
 
 use_spacer left
@@ -58,7 +58,7 @@ ${goto 80}${color yellow}${font Ubuntu-Title:size=11}"manjaro linux"${font}${col
 ${goto 80}alex@alex-b450aoruselite
 ${goto 80}Kernel: $kernel $machine
 ${goto 80}Session type : WAYLAND
-${goto 80}DE: KDE 5.97.0 Plasma 5.25.4
+${goto 80}DE: KDE 5.99.0 Plasma 5.26.2
 ${goto 80}Uptime:$uptime
 #${font DJB Get Digital:size=30}${tab 90}${time %H:%M:%S}
 ${image img/logo-manjaro.png -p 5,40 -s 64x64}

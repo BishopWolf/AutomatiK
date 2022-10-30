@@ -27,12 +27,12 @@ maximum_width 320
 draw_shades no
 draw_outline no
 draw_borders no
-draw_graph_borders yes
+draw_graph_borders no
 stippled_borders 1
 border_width 0
 default_color white
 default_shade_color white
-default_outline_color white
+default_outline_color 000000
 alignment top_right
 
 use_spacer left
@@ -64,19 +64,19 @@ ${fs_bar 11,230 /}${alignr}${offset -5}${fs_used_perc /}% used
  /dev/nvme0n1p2 = 458G (${fs_type /})${color}${alignr}${offset -5}${fs_free /} free
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,67 -s 226x11} ${color}/home
-${fs_bar 11,230 /home}${alignr}${offset -5}${fs_used_perc /home}% used
- /dev/sda2 = 1.8T (${fs_type /home})${color}${alignr}${offset -5}${fs_free /home} free
-${color}${hr 1}
-
-${image img/trans-bg240.png -p 4,142 -s 226x11} ${color}/Data
+${image img/trans-bg240.png -p 4,67 -s 226x11} ${color}/Data
 ${fs_bar 11,230 /Data}${alignr}${offset -5}${fs_used_perc /Data}% used
  /dev/sdb1 = 458G (${fs_type /Data})${color}${alignr}${offset -5}${fs_free /Data} free
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,217 -s 226x11} ${color}/BackUP
+${image img/trans-bg240.png -p 4,142 -s 226x11} ${color}/BackUP
 ${fs_bar 11,230 /BackUP}${alignr}${offset -5}${fs_used_perc /BackUP}% used
  /dev/sdc1 = 458G (${fs_type /BackUP})${color}${alignr}${offset -5}${fs_free /BackUP} free
+${color}${hr 1}
+
+${image img/trans-bg240.png -p 4,217 -s 226x11} ${color}/home
+${fs_bar 11,230 /home}${alignr}${offset -5}${fs_used_perc /home}% used
+ /dev/sda2 = 1.8T (${fs_type /home})${color}${alignr}${offset -5}${fs_free /home} free
 ${color}${hr 1}
 
 ${image img/trans-bg240.png -p 4,292 -s 226x11}

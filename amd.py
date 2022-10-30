@@ -45,7 +45,7 @@ print(CardGPU, CardName)
 
 
 # ------------- Resolution --------------------------
-Resolution = os.popen("xrandr | egrep '^[^ ]|[0-9]\*\+' | grep *+").read()
+Resolution = os.popen("xrandr | grep -E '^[^ ]|[0-9]\*\+' | grep *+").read()
 Resolution = Resolution.rstrip()
 Resolution = Resolution.split()
 Resolution = Resolution[0]
@@ -53,7 +53,7 @@ print(Resolution)
 
 
 # ------------- RefreshRate --------------------------
-RefreshRate = os.popen("xrandr | egrep '^[^ ]|[0-9]\*\+' | grep *+").read()
+RefreshRate = os.popen("xrandr | grep -E '^[^ ]|[0-9]\*\+' | grep *+").read()
 RefreshRate = RefreshRate.rstrip()
 RefreshRate = RefreshRate.split()
 RefreshRate = RefreshRate[1][:-2]
@@ -144,7 +144,8 @@ ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently availabl
 ${goto 80}fanspeed :${alignr}${execi 5 sensors | grep fan1 | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
 ${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $2}'}
 ${goto 80}Power: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $3}'}
-${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{print $10}'}
+${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{print int($10)}'} %
+${goto 80}${execigraph 5 "rocm-smi | head -n 6 | tail -n 1 | awk '{print int($10)}'"}
 ${image img/Ati_logo.png -p 5,55 }
 """
 total = header+txt01+PathToLOGO

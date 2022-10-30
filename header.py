@@ -27,12 +27,12 @@ maximum_width 320
 draw_shades no
 draw_outline no
 draw_borders no
-draw_graph_borders yes
+draw_graph_borders no
 stippled_borders 1
 border_width 0
 default_color white
 default_shade_color white
-default_outline_color white
+default_outline_color 000000
 alignment top_right
 
 use_spacer left
