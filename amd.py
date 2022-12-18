@@ -141,7 +141,7 @@ ${goto 80}Card Name :${alignr}"""+CardName+"""
 ${goto 80}Card GPU :${alignr}"""+CardGPU+"""
 ${goto 80}Card Memory :${alignr}"""+CardMemory+"""
 ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently available dedicated video memory:' | awk '{ print $6}'} MB
-${goto 80}fanspeed :${alignr}${execi 5 sensors | grep fan1 | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
+${goto 80}fanspeed :${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep fan | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
 ${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $2}'}
 ${goto 80}Power: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $3}'}
 ${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{print int($10)}'} %

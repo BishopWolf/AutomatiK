@@ -37,7 +37,7 @@ CPUCore=float(CPUCore)/10
 TemperatureCTL="sensors | grep Tctl | awk '{ print $2}'"
 TemperatureDIE="sensors | grep Tdie | awk '{ print $2}'"
 CPUPower = "sensors | grep SVI2_P_Core | awk '{ print $2}'"
-Fans=r"""sensors | grep fan | awk '{ print $2}' | awk '($0 > 0){print}' | awk -v d="; " '{s=(NR==1?s:s d)$0; str=s" RPM"}END{print str}'"""
+Fans=r"""sensors | grep it8686 -A 22 | grep fan | awk '{ print $2}' | awk -v d="; " '{s=(NR==1?s:s d)$0; str=s" RPM"}END{print str}'"""
 
 # determine installed language
 #Language_installed=os.popen("locale | grep LANG").read()
