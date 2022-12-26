@@ -26,7 +26,7 @@ LOGO="Nvidia_logo.png"
 PathToLOGO="${image img/"+LOGO+" -p 5,55 }"
 
 # ------------- Card Name --------------------------
-CardName=os.popen("LC_ALL=C lshw -class display | grep -i product | egrep -i 'GK|GF|GP|GM' ").read() # find only the nvidia cards
+CardName=os.popen("LC_ALL=C lshw -class display | grep -i product | grep -E -i 'GK|GF|GP|GM' ").read() # find only the nvidia cards
 
 CardName=CardName.split(': ')[-1]
 CardName=CardName.rstrip()

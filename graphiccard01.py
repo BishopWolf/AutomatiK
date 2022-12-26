@@ -23,7 +23,7 @@ if len(CardVendor) > 1:
 # mem${execi 5 radeontop -d- -l1 | grep -o 'vram [0-9]\{1,3\}' | cut -c 5-7 }%
 
 
-# CardName=os.popen("LC_ALL=C lshw -class display | grep -i product | egrep -i 'GK|GF|GP|GM' ").read() # find only the nvidia cards
+# CardName=os.popen("LC_ALL=C lshw -class display | grep -i product | grep -E -i 'GK|GF|GP|GM' ").read() # find only the nvidia cards
 
 
 # T="fdslfjlkm[jfsglm]fjsdklf[12345]fdsf"

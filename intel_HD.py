@@ -32,7 +32,7 @@ CardName=CardName.rstrip()
 
 
 # ------------- Resolution --------------------------
-Resolution=os.popen("xrandr | egrep '^[^ ]|[0-9]\*\+' | grep *+").read() 
+Resolution=os.popen("xrandr | grep -E '^[^ ]|[0-9]\*\+' | grep *+").read() 
 Resolution=Resolution.rstrip()
 Resolution=Resolution.split()
 Resolution=Resolution[0]
@@ -42,7 +42,7 @@ print (Resolution)
 
 
 # ------------- RefreshRate --------------------------
-RefreshRate=os.popen("xrandr | egrep '^[^ ]|[0-9]\*\+' | grep *+").read() 
+RefreshRate=os.popen("xrandr | grep -E '^[^ ]|[0-9]\*\+' | grep *+").read() 
 RefreshRate=RefreshRate.rstrip()
 RefreshRate=RefreshRate.split()
 RefreshRate=RefreshRate[1][:-2]
@@ -129,7 +129,7 @@ InstalledVram=InstalledVram.rstrip()
 #InstalledVram=InstalledVram[1]
 #print (InstalledVram)
 
-#dmesg | egrep 'drm|radeon' | grep Detected
+#dmesg | grep -E 'drm|radeon' | grep Detected
 #"""+Frequency[Language]+"""$alignr ${nvidia memfreq} / """+MaximumClock+""" Mhz
 
 

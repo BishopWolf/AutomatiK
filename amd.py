@@ -34,7 +34,7 @@ BoardName = BoardName.split(': ')[-1].strip()
 CardSpecs = os.popen(
     "clinfo | grep -i '  Name:'").readlines()
 CardName = CardSpecs[0].split(':')[1].strip()
-CardGPU = CardSpecs[1].split('(')[1].split(',')[0].strip()
+CardGPU = CardSpecs[1].split(':')[1].strip()
 
 CardMemory = os.popen(
     "glxinfo | grep -i '  Video Memory:'").readlines()[-1]
@@ -123,7 +123,7 @@ DriverVersion = DriverVersion.split(': ')
 DriverVersion = DriverVersion[1]
 print(DriverVersion)
 
-# dmesg | egrep 'drm|radeon' | grep Detected
+# dmesg | grep -E 'drm|radeon' | grep Detected
 # """+Frequency[Language]+"""$alignr ${nvidia memfreq} / """+MaximumClock+""" Mhz
 txt01 = """
 gap_x 380

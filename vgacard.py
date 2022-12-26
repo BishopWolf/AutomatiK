@@ -19,7 +19,7 @@ elif "it" in Language_installed:
 else:
 	Language="English"
 
-CardDetection=os.popen("""lspci | egrep -i "vga|display" """).read().split()
+CardDetection=os.popen("""lspci | grep -E -i "vga|display" """).read().split()
 print (CardDetection)
 counter=0
 for i in CardDetection:

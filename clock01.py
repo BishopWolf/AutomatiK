@@ -38,8 +38,8 @@ gap_y 190
 
 alignment top_right
 update_interval 1
-lua_load clock.lua
-lua_draw_hook_post main
+#lua_load clock.lua
+#lua_draw_hook_post main
 
 color1 white #Month color
 color2 white #Year  color
@@ -52,22 +52,23 @@ double_buffer true
 
 TEXT
 ${image img/calendar_clock.png -p 0,0 -s 30x30}#
-${image img/calendar.png -p 10,40 -s 140x120}
+${image img/calendar.png -p 10,40 -s 160x120}
 ${offset 35}${font Good Times:size=12}${color Tan1}"""+Time_Date[Language]+""" ${color}${hr 2}${font}
 
 ${goto 20}${voffset 0}${color}${font Rounded Elegance:size=12:weight=normal}${time %B}#
-${alignr 180}${font Rounded Elegance:size=10:weight=normal}${time %Y}
-${voffset 15}${alignc 80}${color 000000}${font Rounded Elegance:size=14}${time %A}
-${alignc 80}${color FF0000}${font Rounded Elegance:size=45:weight=bold}${time %d}${font Rounded Elegance:size=10:weight=normal}
+${alignr 160}${font Rounded Elegance:size=10:weight=normal}${time %Y}
+${voffset 15}${alignc 70}${color 000000}${font Rounded Elegance:size=14}${time %A}
+${alignc 70}${color FF0000}${font Rounded Elegance:size=45:weight=bold}${time %d}${font Rounded Elegance:size=10:weight=normal}
 
 ${voffset -105}
-${font Liquid Crystal:size=25}${color FF0000}${goto 228}${time %H}${goto 263}${blink :}${goto 272}${time %M}${color}
+${font Liquid Crystal:size=25}${color FFFFFF}${goto 228}${time %H}${goto 263}${blink :}${goto 272}${time %M}${color}
 
-${image img/unnamed.png -p 209,41 -s 110x110}
+#${image img/unnamed.png -p 209,41 -s 110x110}
 """
 
 total=header+txt01
 #print total
+themed_clock = open('themed_clock', 'r').read()
 
 f = open('clockfile', 'w')
 f.write(total)  # python will convert \n to os.linesep

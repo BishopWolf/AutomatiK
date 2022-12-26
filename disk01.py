@@ -21,21 +21,21 @@ else:
 List_Of_Devices=[]
 #time.sleep(5)
 #  /dev/sda1
-Partition_Name=os.popen("df -Th 2>/dev/null | grep -E 'dev|media' | egrep -v '^.*(tmp|lib|proc|sys|pts|daemon|root|gvfs|efi).*$'| awk '{ print $1}'").read().split() 
+Partition_Name=os.popen("df -Th 2>/dev/null | grep -E 'dev|media' | grep -E -v '^.*(tmp|lib|proc|sys|pts|daemon|root|gvfs|efi).*$'| awk '{ print $1}'").read().split() 
 
-#new line ? : df -Th | grep dev| egrep -v '^.*(tmp|proc|sys|var|pts|daemon|root|gvfs|efi).*$'
+#new line ? : df -Th | grep dev| grep -E -v '^.*(tmp|proc|sys|var|pts|daemon|root|gvfs|efi).*$'
 
 
 
 # ext4
-File_Type=os.popen("df -PTh 2>/dev/null | grep -E 'dev|media' | egrep -v '^.*(tmp|lib|proc|sys|pts|daemon|root|gvfs|efi).*$'| awk '{ print $2}'").read().split()
+File_Type=os.popen("df -PTh 2>/dev/null | grep -E 'dev|media' | grep -E -v '^.*(tmp|lib|proc|sys|pts|daemon|root|gvfs|efi).*$'| awk '{ print $2}'").read().split()
 
 
 # Size
-Partition_Size=os.popen("df -PTh 2>/dev/null | grep -E 'dev|media' | egrep -v '^.*(tmp|lib|proc|sys|pts|daemon|root|gvfs|efi).*$'| awk '{ print $3}'").read().split()
+Partition_Size=os.popen("df -PTh 2>/dev/null | grep -E 'dev|media' | grep -E -v '^.*(tmp|lib|proc|sys|pts|daemon|root|gvfs|efi).*$'| awk '{ print $3}'").read().split()
 
 #  /media/data_zalman
-Mount_Point=os.popen("df -PTh 2>/dev/null | grep -E 'dev|media' | egrep -v '^.*(tmp|lib|proc|sys|pts|daemon|root|gvfs|efi).*$' |  awk '{ print $7}'").read().split()
+Mount_Point=os.popen("df -PTh 2>/dev/null | grep -E 'dev|media' | grep -E -v '^.*(tmp|lib|proc|sys|pts|daemon|root|gvfs|efi).*$' |  awk '{ print $7}'").read().split()
 #print Mount_Point, len(Mount_Point)
 
 	
