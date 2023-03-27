@@ -26,15 +26,16 @@ LOGO = "Ati_logo.png"
 PathToLOGO = "${image img/"+LOGO+" -p 5,55 }"
 
 # ------------- Card Name --------------------------
+CardName = os.popen(
+    "inxi -Fxz | grep -i '  Device-1:'").readlines()[0]  # find the cards
+
+CardName = CardName.split(': ')[-1].split('[')[0].strip()
+
 BoardName = os.popen(
-    "clinfo | grep -i 'Board name:'").readlines()[-1]  # find the cards
-
-BoardName = BoardName.split(': ')[-1].strip()
-
-CardSpecs = os.popen(
-    "clinfo | grep -i '  Name:'").readlines()
-CardName = CardSpecs[0].split(':')[1].strip()
-CardGPU = CardSpecs[1].split(':')[1].strip()
+    "glxinfo | grep -i '  Device:'").readlines()[0].split(': ')[-1].strip()
+CardSpecs = BoardName.split('(')
+BoardName = CardSpecs[0].strip()
+CardGPU = CardSpecs[1].strip().split(',')[0].strip()
 
 CardMemory = os.popen(
     "glxinfo | grep -i '  Video Memory:'").readlines()[-1]

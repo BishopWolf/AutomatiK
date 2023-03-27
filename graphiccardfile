@@ -57,12 +57,12 @@ lua_load allcombined.lua
 TEXT
 ${image img/graphic_card.png -p 0,0 -s 30x30}
 ${offset 35}${font Good Times:size=12}${color Tan1}GPU INFORMATION ${color}${hr 2}${font}
-${color yellow}${font Ubuntu-Title:size=11}Board name:					 AMD Radeon RX 570 Series${font}${color}
-${goto 80} :XWAYLAND0${alignr} 1920x1080
+${color yellow}${font Ubuntu-Title:size=11}AMD Radeon RX 570 Series${font}${color}
+${goto 80} :DP-2${alignr} 1920x1080
 
 ${goto 80}Driver :${alignr}amdgpu
-${goto 80}Card Name :${alignr}Ellesmere
-${goto 80}Card GPU :${alignr}AMD Radeon RX 570 Series (polaris10, LLVM 14.0.6, DRM 3.49, 6.1.1-1-MANJARO)
+${goto 80}Card Name :${alignr}AMD Ellesmere
+${goto 80}Card GPU :${alignr}polaris10
 ${goto 80}Card Memory :${alignr}8192MB
 ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently available dedicated video memory:' | awk '{ print $6}'} MB
 ${goto 80}fanspeed :${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep fan | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
