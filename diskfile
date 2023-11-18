@@ -64,21 +64,26 @@ ${fs_bar 11,230 /}${alignr}${offset -5}${fs_used_perc /}% used
  /dev/nvme0n1p2 = 458G (${fs_type /})${color}${alignr}${offset -5}${fs_free /} free
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,67 -s 226x11} ${color}/home
-${fs_bar 11,230 /home}${alignr}${offset -5}${fs_used_perc /home}% used
- /dev/sda2 = 1.8T (${fs_type /home})${color}${alignr}${offset -5}${fs_free /home} free
-${color}${hr 1}
-
-${image img/trans-bg240.png -p 4,142 -s 226x11} ${color}/Data
+${image img/trans-bg240.png -p 4,67 -s 226x11} ${color}/Data
 ${fs_bar 11,230 /Data}${alignr}${offset -5}${fs_used_perc /Data}% used
- /dev/sdb1 = 458G (${fs_type /Data})${color}${alignr}${offset -5}${fs_free /Data} free
+ /dev/nvme1n1p2 = 455G (${fs_type /Data})${color}${alignr}${offset -5}${fs_free /Data} free
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,217 -s 226x11} ${color}/BackUP
-${fs_bar 11,230 /BackUP}${alignr}${offset -5}${fs_used_perc /BackUP}% used
- /dev/sdc1 = 458G (${fs_type /BackUP})${color}${alignr}${offset -5}${fs_free /BackUP} free
+${image img/trans-bg240.png -p 4,142 -s 226x11} ${color}/BackUp
+${fs_bar 11,230 /BackUp}${alignr}${offset -5}${fs_used_perc /BackUp}% used
+ /dev/nvme1n1p1 = 461G (${fs_type /BackUp})${color}${alignr}${offset -5}${fs_free /BackUp} free
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,292 -s 226x11}
+${image img/trans-bg240.png -p 4,217 -s 226x11} ${color}/home
+${fs_bar 11,230 /home}${alignr}${offset -5}${fs_used_perc /home}% used
+ /dev/sdb2 = 1.8T (${fs_type /home})${color}${alignr}${offset -5}${fs_free /home} free
+${color}${hr 1}
+
+${image img/trans-bg240.png -p 4,292 -s 226x11} ${color}/Data500
+${fs_bar 11,230 /Data500}${alignr}${offset -5}${fs_used_perc /Data500}% used
+ /dev/sda2 = 412G (${fs_type /Data500})${color}${alignr}${offset -5}${fs_free /Data500} free
+${color}${hr 1}
+
+${image img/trans-bg240.png -p 4,367 -s 226x11}
 ${color lightgrey}Read: $color${diskio_read}${alignr}${color lightgrey}Write: ${color}${diskio_write}
 ${color #000000}${diskiograph_read 12,145 000000 EEEEEE}${alignr}${color #000000}${diskiograph_write 12,145 000000 EEEEEE}

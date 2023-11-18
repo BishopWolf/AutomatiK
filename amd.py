@@ -85,22 +85,6 @@ for i in ResolutionList:
 # print Connectors
 print(Resolutions)
 
-# print Connector
-ConnectorToDisplay = os.popen("xrandr | grep 0+0").readlines()
-# print "0   ",ConnectorToDisplay
-
-
-number = 0
-for i in ConnectorToDisplay:
-    ConnectorToDisplay[number] = ConnectorToDisplay[number].rstrip()
-    # print "a   ",ConnectorToDisplay[number]
-    ConnectorToDisplay[number] = ConnectorToDisplay[number].split(' ', 1)[0]
-    # print "b   ",ConnectorToDisplay[number]
-    number = number+1
-    # print
-
-number = 0
-
 # print ConnectorToDisplay
 Connector_List = []
 # ''.join(list).
@@ -109,7 +93,7 @@ for i,r in zip(Connectors, Resolutions):
         """ :"""+i+"""${alignr} """+r+"\n"
     # print ConnectorToDisplay_TEXT
     Connector_List.append(ConnectorToDisplay_TEXT)
-    number = number+1
+
 Total_Connector = ''.join(Connector_List)
 print("fdsfd", Total_Connector)
 
@@ -143,10 +127,10 @@ ${goto 80}Card GPU :${alignr}"""+CardGPU+"""
 ${goto 80}Card Memory :${alignr}"""+CardMemory+"""
 ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently available dedicated video memory:' | awk '{ print $6}'} MB
 ${goto 80}fanspeed :${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep fan | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
-${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $2}'}
-${goto 80}Power: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{ print $3}'}
-${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | head -n 6 | tail -n 1 | awk '{print int($10)}'} %
-${goto 80}${execigraph 5 "rocm-smi | head -n 6 | tail -n 1 | awk '{print int($10)}'"}
+${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 7 | tail -n 1 | awk '{ print $2}'}
+${goto 80}Power: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 7 | tail -n 1 | awk '{ print $8}'}
+${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 7 | tail -n 1 | awk '{print int($10)}'} %
+${goto 80}${execigraph 5 "rocm-smi | tail -n +1 | head -n 7 | tail -n 1 | awk '{print int($10)}'"}
 ${image img/Ati_logo.png -p 5,55 }
 """
 total = header+txt01+PathToLOGO

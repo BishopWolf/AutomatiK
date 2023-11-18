@@ -58,7 +58,7 @@ ${goto 80}${color yellow}${font Ubuntu-Title:size=11}"manjaro linux"${font}${col
 ${goto 80}alex@alex-b450aoruselite
 ${goto 80}Kernel: $kernel $machine
 ${goto 80}Session type : WAYLAND
-${goto 80}DE: KDE 5.104.0 Plasma 5.27.3
+${goto 80}DE: KDE 5.112.0 Plasma 5.27.9
 ${goto 80}Uptime:$uptime
 #${font DJB Get Digital:size=30}${tab 90}${time %H:%M:%S}
 ${image img/logo-manjaro.png -p 5,40 -s 64x64}
