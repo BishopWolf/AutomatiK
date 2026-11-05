@@ -10,7 +10,7 @@ def job():
 	global Partition_Name0	
 	Partition_NameActuel=os.popen(DiskSearchCommand).read().split() # 
 	if Partition_NameActuel!= Partition_Name0:
-		os.system("python disk01.py")
+		os.system("python3 disk01.py")
 		#print Partition_NameActuel
 	Partition_Name0=os.popen(DiskSearchCommand).read().split() # 
 

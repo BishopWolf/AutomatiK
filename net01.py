@@ -1,21 +1,10 @@
 # -*- encoding: utf-8 -*-
 import os
-header = open('header.py', 'r').read()
-
+from common import detect_language, read_header, write_file
 from translations import *
 
-# determine installed language
-Language_installed=os.popen("locale | grep LANG").read()
-if "fr" in Language_installed:
-	Language="French"
-elif "de" in Language_installed:
-	Language="German"
-elif "pt" in Language_installed:
-	Language="Portuguese"
-elif "it" in Language_installed:
-	Language="Italian"
-else:
-	Language="English"
+Language = detect_language()
+header = read_header()
 
 
 
@@ -33,11 +22,11 @@ NumberOfInterfaces=os.popen("ls /sys/class/net/ | sed '/lo/d'").read().split()
 
 txt01="""
 gap_x 380
-gap_y 230
+gap_y 225
 
 TEXT
 ${image img/earth_network.png -p 0,0 -s 30x30}
-${offset 35}${font Good Times:size=12}${color Tan1}"""+NETWORK[Language]+""" ${color}${hr 2}${font}
+${offset 35}${font DejaVu Sans:size=12}${color Tan1}"""+NETWORK[Language]+""" ${color}${hr 2}${font}
 """
 
 #${wireless_link_qual_perc wlp7s0} %  ${wireless_essid}
@@ -82,6 +71,4 @@ total=header+txt01+Public_IP_Value+TotalNetwork
 
 
 
-f = open('netfile', 'w')
-f.write(total)  # python will convert \n to os.linesep
-f.close()  # you can omit in most cases as the destructor will call it
+write_file('netfile', total)  # python will convert \n to os.linesep

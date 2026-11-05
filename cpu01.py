@@ -1,22 +1,10 @@
 # -*- encoding: utf-8 -*-
 import os
-import platform
+from common import detect_language, read_header, write_file
 from translations import *
-header = open('header.py', 'r').read()
 
-
-# determine installed language
-Language_installed=os.popen("locale | grep LANG").read()
-if "fr" in Language_installed:
-	Language="French"
-elif "de" in Language_installed:
-	Language="German"
-elif "pt" in Language_installed:
-	Language="Portuguese"
-elif "it" in Language_installed:
-	Language="Italian"
-else:
-	Language="English"
+Language = detect_language()
+header = read_header()
 
 # ---------------------------------
 # determine what is the best sensor
@@ -63,7 +51,7 @@ lua_load allcombined.lua
 
 TEXT
 ${image img/cpu2.png -p 0,0 -s 30x30}
-${offset 35}${font AvantGardeLTMedium:size=14}${color Tan1}"""+CpuInformation[Language]+""" ${color}${hr 2}
+${offset 35}${font DejaVu Sans:size=14}${color Tan1}"""+CpuInformation[Language]+""" ${color}${hr 2}
 ${font}${color}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq}
 ${color lightgrey}"""+Temperature[Language]+""" ${texeci 10 echo $((`cat /sys/class/thermal/thermal_zone0/temp`/1000))°C}
 ${alignc}${color #000000}${cpugraph 20,318 000000 FFEF00}"
@@ -72,14 +60,14 @@ else:
 
 	txt01="""
 gap_x 15
-gap_y 560
+gap_y 515
 
 lua_load allcombined.lua
 
 
 TEXT
 ${image img/cpu2.png -p 0,0 -s 30x30}
-${offset 35}${font Good Times:size=12}${color Tan1}"""+CpuInformation[Language]+""" ${color}${hr 2}
+${offset 35}${font DejaVu Sans:size=12}${color Tan1}"""+CpuInformation[Language]+""" ${color}${hr 2}
 ${font}${color}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq}
 ${color lightgrey}"""+Temperature[Language]+""" DIE ${texeci 10 """+TemperatureDIE+"""}
 ${color lightgrey}"""+Temperature[Language]+""" CTL ${texeci 10 """+TemperatureCTL+"""}
@@ -108,21 +96,16 @@ for Cores in range(int(NumberOfCores)):
     CpuName=""+Cpu[Language]+" "+str(Cores+1)
     CpuUsage="${goto 50} : ${cpu cpu"+str(Cores+1)+"}%"
     CpuGraph=f'${{goto 96}}${{cpubar cpu{Cores+1} 11,121}}'
-    CpuFrequency="${goto 230}${color}${freq "+str(Cores+1)+"} MHz"
-    BackgroundImage="${image img/trans-bg240.png -p 93,"+str(Height+42)+" -s 121x11}"+"\n"
+    CpuFrequency="${goto 230}${color}${freq "+str(Cores+1)+"} MHz\n"
 
     List.append(Comment)
     List.append(CpuName)
     List.append(CpuUsage)
     List.append(CpuGraph)
     List.append(CpuFrequency)
-    List.append(BackgroundImage)
-
     Height=Height+15
 TotalCpu=''.join(List)
 total=header+txt01+TotalCpu
 #print (total)
 
-f = open('cpufile', 'w')
-f.write(total)  # python will convert \n to os.linesep
-f.close()  # you can omit in most cases as the destructor will call it
+write_file('cpufile', total)  # python will convert \n to os.linesep

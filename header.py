@@ -3,48 +3,40 @@ update_interval 2
 background yes
 
 own_window yes
-
-# own_window_type desktop
+own_window_type normal
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-#own_window_type override
-own_window_argb_visual true
-own_window_argb_value 160
-out_to_console no
-own_window_transparent no
+xinerama_head 0
 own_window_class conky-semi
-use_xft yes
-xftfont cure:size=10
+out_to_x yes
+out_to_wayland no
 
-#use_xft yes
-#xftfont Sansation:size=9
-xftfont Rounded Elegance:size=10
-xftalpha 0
-update_interval 2
+use_xft yes
+xftfont DejaVu Sans:size=10
+
 cpu_avg_samples 2
 net_avg_samples 2
-double_buffer yes
 maximum_width 320
+
 draw_shades no
 draw_outline no
 draw_borders no
 draw_graph_borders no
 stippled_borders 1
 border_width 0
+
 default_color white
 default_shade_color white
 default_outline_color 000000
-alignment top_right
 
+alignment top_right
 use_spacer left
 no_buffers yes
 uppercase no
 
 color0 white
-
 color2 white
 color3 1793d0
 
-
 pad_percents 2
-top_name_width 10
+top_name_width 14
 minimum_size 320 100

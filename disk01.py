@@ -1,20 +1,10 @@
 # -*- encoding: utf-8 -*-
-import os,time
-header = open('header.py', 'r').read()
+import os, time
+from common import detect_language, read_header, write_file
 from translations import *
 
-# determine installed language
-Language_installed=os.popen("locale | grep LANG").read()
-if "fr" in Language_installed:
-	Language="French"
-elif "de" in Language_installed:
-	Language="German"
-elif "pt" in Language_installed:
-	Language="Portuguese"
-elif "it" in Language_installed:
-	Language="Italian"
-else:
-	Language="English"
+Language = detect_language()
+header = read_header()
 
 
 
@@ -59,7 +49,7 @@ lua_load allcombined.lua
 
 TEXT
 ${image img/hard_drive.png -p 0,0 -s 30x30}
-${offset 35}${font Good Times:size=12}${color Tan1}"""+DiskUsage[Language]+""" ${color}${hr 2}${font}
+${offset 35}${font DejaVu Sans:size=12}${color Tan1}"""+DiskUsage[Language]+""" ${color}${hr 2}${font}
 """
 
 List = []
@@ -79,7 +69,6 @@ for name, point, size in zip(Partition_Name, Mount_Point, Partition_Size):
 		DriveName=" "+name+" = "+size+" (${fs_type "+point+"})"
 	FreeSpace="${color}${alignr}${offset -5}${fs_free "+point+"} "+FreeWord[Language]+"\n"
 	Separator="${color}${hr 1}"+"\n\n"
-	BackgroundImage="${image img/trans-bg240.png -p 4,"+str(Height-3)+" -s 226x11}"
 
 	List.append(Mount)
 	List.append(Graph)
@@ -87,7 +76,6 @@ for name, point, size in zip(Partition_Name, Mount_Point, Partition_Size):
 	List.append(DriveName)
 	List.append(FreeSpace)
 	List.append(Separator)
-	List.append(BackgroundImage)
 	Height=Height+75
 TotalDisk=''.join(List)
 #print "TotalDisk",TotalDisk
@@ -104,6 +92,4 @@ ${color #000000}${diskiograph_read 12,145 000000 EEEEEE}${alignr}${color #000000
 total=header+"\n"+txt01+"\n"+TotalDisk+"\n"+txt02
 #print total
 
-f = open('diskfile', 'w')
-f.write(total)  # python will convert \n to os.linesep
-f.close()  # you can omit in most cases as the destructor will call it
+write_file('diskfile', total)  # python will convert \n to os.linesep

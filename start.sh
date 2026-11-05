@@ -1,30 +1,50 @@
 #!/bin/bash
-cd $(dirname $0)
-killall conky
-mkdir ~/.fonts > /dev/null 2>&1 
-cp fonts/*.*tf ~/.fonts > /dev/null 2>&1 
-mkdir ~/.local/share/fonts/ > /dev/null 2>&1 
-cp fonts/*.*tf ~/.local/share/fonts/ > /dev/null 2>&1 
-fc-cache ~/.fonts
-python3 info01.py 
+cd "$(dirname "$0")" || exit 1
+
+CONKY_BIN="${CONKY_BIN:-}"
+if [[ -z "$CONKY_BIN" ]]; then
+	if [[ "${XDG_SESSION_TYPE:-}" == "wayland" && -x "$HOME/.local/opt/conky-1.24.2/usr/bin/conky" ]]; then
+		CONKY_BIN="$HOME/.local/opt/conky-1.24.2/usr/bin/conky"
+	else
+		CONKY_BIN="$(command -v conky)"
+	fi
+fi
+
+if [[ -z "$CONKY_BIN" || ! -x "$CONKY_BIN" ]]; then
+	printf 'Conky executable not found. Set CONKY_BIN to a valid executable.\n' >&2
+	exit 1
+fi
+
+for config in infofile clockfile memfile cpufile topfile diskfile netfile graphiccardfile; do
+	pkill -KILL -f "[c]onky .* -c .*/AutomatiK/${config}" 2>/dev/null || true
+done
+
+mkdir -p ~/.fonts ~/.local/share/fonts
+cp fonts/*.*tf ~/.fonts/ 2>/dev/null
+cp fonts/*.*tf ~/.local/share/fonts/ 2>/dev/null
+fc-cache -f ~/.fonts 2>/dev/null
+
+python3 info01.py
 python3 clock01.py
 python3 mem01.py
 python3 cpu01.py
 python3 disk01.py
 python3 top01.py
 python3 net01.py
-python3 amd.py
-conky -q -c infofile
-conky -q -c clockfile
-conky -q -c memfile
-conky -q -c cpufile
-conky -q -c topfile
-conky -q -c diskfile
-conky -q -c netfile
-conky -q -c graphiccardfile
-#conky -q -c rssfile
+python3 graphiccard01.py
+
+"$CONKY_BIN" -q -d -c "$PWD/infofile"
+"$CONKY_BIN" -q -d -c "$PWD/clockfile"
+"$CONKY_BIN" -q -d -c "$PWD/memfile"
+"$CONKY_BIN" -q -d -c "$PWD/cpufile"
+"$CONKY_BIN" -q -d -c "$PWD/topfile"
+"$CONKY_BIN" -q -d -c "$PWD/diskfile"
+"$CONKY_BIN" -q -d -c "$PWD/netfile"
+"$CONKY_BIN" -q -d -c "$PWD/graphiccardfile"
+
 python3 poll_disk.py &
 python3 poll_day.py &
+
 notify-send -i ~/AutomatiK/AutomatiK.png \
 "Information" \
 "Automatik is started

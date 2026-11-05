@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 import os
-import platform
-import re
+import string
+from common import detect_language, read_header, write_file
 from translations import *
-header = open('header.py', 'r').read()
+header = read_header()
 
 global Language
 
@@ -13,8 +13,7 @@ if Session_WM == "":
 
 
 # determine installed language
-Language_installed=os.popen("locale | grep LANG").read()
-# print Language_installed
+Language = detect_language()
 
 UserHost=os.popen("echo `whoami`@`hostname`").read()
 # print UserHost
@@ -39,8 +38,10 @@ DistroID=os.popen("lsb_release -ds 2>/dev/null || cat /etc/*release 2>/dev/null 
 
 DistroID = DistroID.strip('\n')
 
-DesktopEnvironment=os.popen('screenfetch -n | grep "DE"').read()
-DesktopEnvironment=re.sub('[^A-Za-z0-9:.]+', ' ', DesktopEnvironment).strip()[16:]
+PERMITTED_CHARS = string.digits + string.ascii_letters + ':.'
+
+DesktopEnvironment=os.popen("fastfetch | grep 'DE' | gawk '{print $2, $3, $4}'").read()
+DesktopEnvironment="".join(c for c in DesktopEnvironment if c in PERMITTED_CHARS).replace("0m","")
 
 if 'ubuntu' in DistroID:
 	#Session_WM=os.popen('echo $XDG_CURRENT_DESKTOP').read()
@@ -56,11 +57,7 @@ elif 'pclinux' in DistroID:
 		LOGO="logo-PC-LinuxOS.png"
 
 elif 'mandr' in DistroID:
-		if 'pclinux' in platform.dist()[2].lower():
-			LOGO="logo-PC-LinuxOS.png"
-		else:
-			LOGO="logo-mandriva.png"
-
+                LOGO="logo-mandriva.png"
 elif 'pepper' in DistroID:
 		LOGO="logo-peppermint.png"
 
@@ -141,17 +138,7 @@ PathToLOGO="${image img/"+LOGO+" -p 5,40 -s 64x64}"
 loginSession=os.popen("echo $XDG_SESSION_TYPE").read().rstrip()
 
 
-if "fr" in Language_installed:
-	Language="French"
-elif "de" in Language_installed:
-	Language="German"
-elif "pt" in Language_installed:
-	Language="Portuguese"
-elif "it" in Language_installed:
-	Language="Italian"
-else:
-	Language="English"
-# print "language",Language
+Language = detect_language()
 
 #grep POWER_SUPPLY_CAPACITY /sys/class/power_supply/BAT1/uevent
 
@@ -164,9 +151,9 @@ gap_y 50
 
 TEXT
 ${image img/information.png -p 0,0 -s 30x30}
-${offset 35}${font Good Times:size=12}${color Tan1}"""+SystemInformation[Language]+""" ${color}${hr 2}${font}
+${offset 35}${font DejaVu Sans:size=12}${color Tan1}"""+SystemInformation[Language]+""" ${color}${hr 2}${font}
 """ 
-txt02="""${goto 80}${color yellow}${font Ubuntu-Title:size=11}"""+DistroID+"""${font}${color} | """
+txt02="""${goto 80}${color yellow}${font DejaVu Sans:size=11}"""+DistroID+"""${font}${color} | """
 txt03="""${goto 80}"""+Kernel[Language]+""" $kernel $machine"""
 txt04="""\n${goto 80}Session type : """ + loginSession.upper() 
 txt05="""\n${goto 80}DE: """ + DesktopEnvironment

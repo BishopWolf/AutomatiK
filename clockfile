@@ -3,50 +3,40 @@ update_interval 2
 background yes
 
 own_window yes
-
-# own_window_type desktop
+own_window_type normal
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-#own_window_type override
-own_window_argb_visual true
-own_window_argb_value 160
-out_to_console no
-own_window_transparent no
+xinerama_head 0
 own_window_class conky-semi
-use_xft yes
-xftfont cure:size=10
 
-#use_xft yes
-#xftfont Sansation:size=9
-xftfont Rounded Elegance:size=10
-xftalpha 0
-update_interval 2
+use_xft yes
+xftfont DejaVu Sans:size=10
+
 cpu_avg_samples 2
 net_avg_samples 2
-double_buffer yes
 maximum_width 320
+
 draw_shades no
 draw_outline no
 draw_borders no
 draw_graph_borders no
 stippled_borders 1
 border_width 0
+
 default_color white
 default_shade_color white
 default_outline_color 000000
-alignment top_right
 
+alignment top_right
 use_spacer left
 no_buffers yes
 uppercase no
 
 color0 white
-
 color2 white
 color3 1793d0
 
-
 pad_percents 2
-top_name_width 10
+top_name_width 14
 minimum_size 320 100
 
 #==============================================================================
@@ -80,14 +70,14 @@ double_buffer true
 TEXT
 ${image img/calendar_clock.png -p 0,0 -s 30x30}#
 ${image img/calendar.png -p 10,40 -s 160x120}
-${offset 35}${font Good Times:size=12}${color Tan1}TIME - DATE  ${color}${hr 2}${font}
+${offset 35}${font DejaVu Sans:size=12}${color Tan1}TEMPS - DATE  ${color}${hr 2}${font}
 
-${goto 20}${voffset 0}${color}${font Rounded Elegance:size=12:weight=normal}${time %B}#
-${alignr 160}${font Rounded Elegance:size=10:weight=normal}${time %Y}
-${voffset 15}${alignc 70}${color 000000}${font Rounded Elegance:size=14}${time %A}
-${alignc 70}${color FF0000}${font Rounded Elegance:size=45:weight=bold}${time %d}${font Rounded Elegance:size=10:weight=normal}
+${goto 20}${voffset 0}${color}${font DejaVu Sans:size=12}${time %B}#
+${alignr 160}${font DejaVu Sans:size=10}${time %Y}
+${voffset 15}${alignc 70}${color 000000}${font DejaVu Sans:size=14}${time %A}
+${alignc 70}${color FF0000}${font DejaVu Sans:size=45}${time %d}${font DejaVu Sans:size=10}
 
 ${voffset -105}
-${font Liquid Crystal:size=25}${color FFFFFF}${goto 228}${time %H}${goto 263}${blink :}${goto 272}${time %M}${color}
+${font DejaVu Sans:size=25}${color FFFFFF}${goto 228}${time %H}${goto 263}${blink :}${goto 272}${time %M}${color}
 
 #${image img/unnamed.png -p 209,41 -s 110x110}

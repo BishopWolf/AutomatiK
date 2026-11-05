@@ -10,7 +10,7 @@ def job():
 	global Date0
 	DateNow=os.popen(DateCommand).read()
 	if DateNow != Date0:
-		os.system("python clock01.py")
+		os.system("python3 clock01.py")
 		Date0=os.popen(DateCommand).read()
 
 

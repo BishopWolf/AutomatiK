@@ -3,73 +3,65 @@ update_interval 2
 background yes
 
 own_window yes
-
-# own_window_type desktop
+own_window_type normal
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-#own_window_type override
-own_window_argb_visual true
-own_window_argb_value 160
-out_to_console no
-own_window_transparent no
+xinerama_head 0
 own_window_class conky-semi
-use_xft yes
-xftfont cure:size=10
+out_to_x yes
+out_to_wayland no
 
-#use_xft yes
-#xftfont Sansation:size=9
-xftfont Rounded Elegance:size=10
-xftalpha 0
-update_interval 2
+use_xft yes
+xftfont DejaVu Sans:size=10
+
 cpu_avg_samples 2
 net_avg_samples 2
-double_buffer yes
 maximum_width 320
+
 draw_shades no
 draw_outline no
 draw_borders no
 draw_graph_borders no
 stippled_borders 1
 border_width 0
+
 default_color white
 default_shade_color white
 default_outline_color 000000
-alignment top_right
 
+alignment top_right
 use_spacer left
 no_buffers yes
 uppercase no
 
 color0 white
-
 color2 white
 color3 1793d0
 
-
 pad_percents 2
-top_name_width 10
+top_name_width 14
 minimum_size 320 100
 
 gap_x 380
-gap_y 670
+gap_y 560
 
 lua_load allcombined.lua
 
 TEXT
 ${image img/graphic_card.png -p 0,0 -s 30x30}
-${offset 35}${font Good Times:size=12}${color Tan1}GPU INFORMATION ${color}${hr 2}${font}
-${color yellow}${font Ubuntu-Title:size=11}AMD Radeon RX 570 Series${font}${color}
-${goto 80} :DP-2${alignr} 1920x1080
+${offset 35}${font DejaVu Sans:size=12}${color Tan1}GPU INFORMATION ${color}${hr 2}${font}
+${color yellow}${font DejaVu Sans:size=11}AMD Radeon RX 570 Series${font}${color}
+${goto 80} :DP-3${alignr} 1920x1080
 ${goto 80} :HDMI-A-1${alignr} 1920x1080
 
 ${goto 80}Driver :${alignr}amdgpu
-${goto 80}Card Name :${alignr}100%
+${goto 80}Card Name :${alignr}gfx803
 ${goto 80}Card GPU :${alignr}polaris10
 ${goto 80}Card Memory :${alignr}8192MB
 ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently available dedicated video memory:' | awk '{ print $6}'} MB
 ${goto 80}fanspeed :${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep fan | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
-${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 7 | tail -n 1 | awk '{ print $2}'}
-${goto 80}Power: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 7 | tail -n 1 | awk '{ print $8}'}
-${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 7 | tail -n 1 | awk '{print int($10)}'} %
-${goto 80}${execigraph 5 "rocm-smi | tail -n +1 | head -n 7 | tail -n 1 | awk '{print int($10)}'"}
+${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{ print $5}'}
+${goto 80}Power: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{ print $6}'}
+${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{print int($16)}'} %
+${goto 80}${execigraph 5 "rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{print int($16)}'"}
 ${image img/Ati_logo.png -p 5,55 }
 ${image img/Ati_logo.png -p 5,55 }

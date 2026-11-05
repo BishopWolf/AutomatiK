@@ -3,50 +3,40 @@ update_interval 2
 background yes
 
 own_window yes
-
-# own_window_type desktop
+own_window_type normal
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-#own_window_type override
-own_window_argb_visual true
-own_window_argb_value 160
-out_to_console no
-own_window_transparent no
+xinerama_head 0
 own_window_class conky-semi
-use_xft yes
-xftfont cure:size=10
 
-#use_xft yes
-#xftfont Sansation:size=9
-xftfont Rounded Elegance:size=10
-xftalpha 0
-update_interval 2
+use_xft yes
+xftfont DejaVu Sans:size=10
+
 cpu_avg_samples 2
 net_avg_samples 2
-double_buffer yes
 maximum_width 320
+
 draw_shades no
 draw_outline no
 draw_borders no
 draw_graph_borders no
 stippled_borders 1
 border_width 0
+
 default_color white
 default_shade_color white
 default_outline_color 000000
-alignment top_right
 
+alignment top_right
 use_spacer left
 no_buffers yes
 uppercase no
 
 color0 white
-
 color2 white
 color3 1793d0
 
-
 pad_percents 2
-top_name_width 10
+top_name_width 14
 minimum_size 320 100
 
 
@@ -57,33 +47,43 @@ lua_load allcombined.lua
 
 TEXT
 ${image img/hard_drive.png -p 0,0 -s 30x30}
-${offset 35}${font Good Times:size=12}${color Tan1}DISK USAGE ${color}${hr 2}${font}
+${offset 35}${font DejaVu Sans:size=12}${color Tan1}UTILISATION DES DISQUES ${color}${hr 2}${font}
 
  ${color}/
-${fs_bar 11,230 /}${alignr}${offset -5}${fs_used_perc /}% used
- /dev/nvme0n1p2 = 458G (${fs_type /})${color}${alignr}${offset -5}${fs_free /} free
+${fs_bar 11,230 /}${alignr}${offset -5}${fs_used_perc /}% utilisés
+ /dev/nvme0n1p2 = 466G (${fs_type /})${color}${alignr}${offset -5}${fs_free /} libres
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,67 -s 226x11} ${color}/Data
-${fs_bar 11,230 /Data}${alignr}${offset -5}${fs_used_perc /Data}% used
- /dev/nvme1n1p2 = 455G (${fs_type /Data})${color}${alignr}${offset -5}${fs_free /Data} free
+ ${color}/home
+${fs_bar 11,230 /home}${alignr}${offset -5}${fs_used_perc /home}% utilisés
+ /dev/nvme0n1p2 = 466G (${fs_type /home})${color}${alignr}${offset -5}${fs_free /home} libres
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,142 -s 226x11} ${color}/BackUp
-${fs_bar 11,230 /BackUp}${alignr}${offset -5}${fs_used_perc /BackUp}% used
- /dev/nvme1n1p1 = 461G (${fs_type /BackUp})${color}${alignr}${offset -5}${fs_free /BackUp} free
+ ${color}/var/cache
+${fs_bar 11,230 /var/cache}${alignr}${offset -5}${fs_used_perc /var/cache}% utilisés
+ /dev/nvme0n1p2 = 466G (${fs_type /var/cache})${color}${alignr}${offset -5}${fs_free /var/cache} libres
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,217 -s 226x11} ${color}/home
-${fs_bar 11,230 /home}${alignr}${offset -5}${fs_used_perc /home}% used
- /dev/sdb2 = 1.8T (${fs_type /home})${color}${alignr}${offset -5}${fs_free /home} free
+ ${color}/var/log
+${fs_bar 11,230 /var/log}${alignr}${offset -5}${fs_used_perc /var/log}% utilisés
+ /dev/nvme0n1p2 = 466G (${fs_type /var/log})${color}${alignr}${offset -5}${fs_free /var/log} libres
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,292 -s 226x11} ${color}/Data500
-${fs_bar 11,230 /Data500}${alignr}${offset -5}${fs_used_perc /Data500}% used
- /dev/sda2 = 412G (${fs_type /Data500})${color}${alignr}${offset -5}${fs_free /Data500} free
+ ${color}/Data
+${fs_bar 11,230 /Data}${alignr}${offset -5}${fs_used_perc /Data}% utilisés
+ /dev/nvme1n1p2 = 877G (${fs_type /Data})${color}${alignr}${offset -5}${fs_free /Data} libres
 ${color}${hr 1}
 
-${image img/trans-bg240.png -p 4,367 -s 226x11}
-${color lightgrey}Read: $color${diskio_read}${alignr}${color lightgrey}Write: ${color}${diskio_write}
+ ${color}/Data500
+${fs_bar 11,230 /Data500}${alignr}${offset -5}${fs_used_perc /Data500}% utilisés
+ /dev/sda2 = 458G (${fs_type /Data500})${color}${alignr}${offset -5}${fs_free /Data500} libres
+${color}${hr 1}
+
+ ${color}/Home
+${fs_bar 11,230 /Home}${alignr}${offset -5}${fs_used_perc /Home}% utilisés
+ /dev/sdb2 = 1,8T (${fs_type /Home})${color}${alignr}${offset -5}${fs_free /Home} libres
+${color}${hr 1}
+
+
+${color lightgrey}Lecture: $color${diskio_read}${alignr}${color lightgrey}Ecriture: ${color}${diskio_write}
 ${color #000000}${diskiograph_read 12,145 000000 EEEEEE}${alignr}${color #000000}${diskiograph_write 12,145 000000 EEEEEE}
