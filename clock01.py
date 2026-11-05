@@ -25,8 +25,8 @@ gap_y 190
 
 alignment top_right
 update_interval 1
-#lua_load clock.lua
-#lua_draw_hook_post main
+lua_load themed_clock.lua
+lua_draw_hook_post main
 
 color1 white #Month color
 color2 white #Year  color
@@ -39,16 +39,13 @@ double_buffer true
 
 TEXT
 ${image img/calendar_clock.png -p 0,0 -s 30x30}#
-${image img/calendar.png -p 10,40 -s 160x120}
+${image img/calendar.png -p 10,40 -s 130x98}
 ${offset 35}${font DejaVu Sans:size=12}${color Tan1}"""+Time_Date[Language]+""" ${color}${hr 2}${font}
 
-${goto 20}${voffset 0}${color}${font DejaVu Sans:size=12}${time %B}#
-${alignr 160}${font DejaVu Sans:size=10}${time %Y}
-${voffset 15}${alignc 70}${color 000000}${font DejaVu Sans:size=14}${time %A}
-${alignc 70}${color FF0000}${font DejaVu Sans:size=45}${time %d}${font DejaVu Sans:size=10}
-
-${voffset -105}
-${font DejaVu Sans:size=25}${color FFFFFF}${goto 228}${time %H}${goto 263}${blink :}${goto 272}${time %M}${color}
+${voffset -6}${goto 20}${font DejaVu Sans:size=10}${time %B}#
+${goto 106}${font DejaVu Sans:size=9}${time %Y}
+${voffset 8}${alignc 84}${color 000000}${font DejaVu Sans:size=12}${time %A}
+${voffset -3}${alignc 84}${color FF0000}${font DejaVu Sans:size=34}${time %d}${font}
 
 #${image img/unnamed.png -p 209,41 -s 110x110}
 """
