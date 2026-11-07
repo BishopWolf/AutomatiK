@@ -5,7 +5,7 @@ background yes
 own_window yes
 own_window_type normal
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-xinerama_head 0
+xinerama_head 1
 own_window_class conky-semi
 out_to_x yes
 out_to_wayland no
@@ -42,7 +42,7 @@ top_name_width 14
 minimum_size 320 100
 
 gap_x 380
-gap_y 225
+gap_y 298
 
 TEXT
 ${image img/earth_network.png -p 0,0 -s 30x30}

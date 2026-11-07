@@ -43,7 +43,7 @@ Mount_Point=os.popen("df -PTh 2>/dev/null | grep -E 'dev|media' | grep -E -v '^.
 
 txt01="""
 gap_x 745
-gap_y 50
+gap_y 19
 
 lua_load allcombined.lua
 

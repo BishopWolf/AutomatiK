@@ -7,7 +7,10 @@ Language = detect_language()
 header = read_header()
 
 CardVendor = os.popen(
-    "clinfo | grep -i 'Platform Vendor:'").read().rstrip().lower().split("\n")
+    "clinfo 2>/dev/null | grep -i 'Platform Vendor:'").read().rstrip().lower().split("\n")
+if not any(CardVendor):
+    CardVendor = os.popen(
+        "lspci | grep -i ' vga '").read().rstrip().lower().split("\n")
 
 if len(CardVendor) > 1:
     for i in range(len(CardVendor)):

@@ -8,7 +8,7 @@ header = read_header()
 
 
 txt01="""gap_x 15
-gap_y  375
+gap_y  409
 lua_load allcombined.lua
 
 #${lua gradbar {5, 218 "${memperc}" ,100, 80, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}

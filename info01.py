@@ -147,7 +147,7 @@ Language = detect_language()
 # print SystemInformation[Language]
 
 txt01="""gap_x   15
-gap_y 50
+gap_y 19
 
 TEXT
 ${image img/information.png -p 0,0 -s 30x30}

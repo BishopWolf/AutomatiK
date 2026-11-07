@@ -98,7 +98,7 @@ print(DriverVersion)
 # """+Frequency[Language]+"""$alignr ${nvidia memfreq} / """+MaximumClock+""" Mhz
 txt01 = """
 gap_x 380
-gap_y 560
+gap_y 727
 
 lua_load allcombined.lua
 
@@ -113,11 +113,9 @@ ${goto 80}Card GPU :${alignr}"""+CardGPU+"""
 ${goto 80}Card Memory :${alignr}"""+CardMemory+"""
 ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently available dedicated video memory:' | awk '{ print $6}'} MB
 ${goto 80}fanspeed :${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep fan | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
-${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{ print $5}'}
-${goto 80}Power: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{ print $6}'}
-${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{print int($16)}'} %
-${goto 80}${execigraph 5 "rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{print int($16)}'"}
-${image img/Ati_logo.png -p 5,55 }
-"""
+${goto 80}Temperature: ${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep edge | awk '{ print $2}'}
+${goto 80}Power: ${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep PPT | awk '{ print $2 " " $3}'}
+${goto 80}GPU use: ${alignr}${execi 5 cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -n 1} %
+${goto 80}${execigraph 5 "cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -n 1"}"""
 total = header+txt01+PathToLOGO
 write_file('graphiccardfile', total)

@@ -5,7 +5,7 @@ background yes
 own_window yes
 own_window_type normal
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-xinerama_head 0
+xinerama_head 1
 own_window_class conky-semi
 out_to_x yes
 out_to_wayland no
@@ -42,7 +42,7 @@ top_name_width 14
 minimum_size 320 100
 
 gap_x 380
-gap_y 560
+gap_y 727
 
 lua_load allcombined.lua
 
@@ -59,9 +59,7 @@ ${goto 80}Card GPU :${alignr}polaris10
 ${goto 80}Card Memory :${alignr}8192MB
 ${goto 80}Free Memory :${alignr}${execi 10 glxinfo | grep -i 'Currently available dedicated video memory:' | awk '{ print $6}'} MB
 ${goto 80}fanspeed :${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep fan | head -n 2 | tail -n 1 | awk '{ print $2}'} RPM
-${goto 80}Temperature: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{ print $5}'}
-${goto 80}Power: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{ print $6}'}
-${goto 80}GPU use: ${alignr}${execi 5 rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{print int($16)}'} %
-${goto 80}${execigraph 5 "rocm-smi | tail -n +1 | head -n 8 | tail -n 1 | awk '{print int($16)}'"}
-${image img/Ati_logo.png -p 5,55 }
-${image img/Ati_logo.png -p 5,55 }
+${goto 80}Temperature: ${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep edge | awk '{ print $2}'}
+${goto 80}Power: ${alignr}${execi 5 sensors | grep amdgpu -A 6 | grep PPT | awk '{ print $2 " " $3}'}
+${goto 80}GPU use: ${alignr}${execi 5 cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -n 1} %
+${goto 80}${execigraph 5 "cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -n 1"}${image img/Ati_logo.png -p 5,55 }

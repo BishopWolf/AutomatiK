@@ -22,7 +22,7 @@ NumberOfInterfaces=os.popen("ls /sys/class/net/ | sed '/lo/d'").read().split()
 
 txt01="""
 gap_x 380
-gap_y 225
+gap_y 298
 
 TEXT
 ${image img/earth_network.png -p 0,0 -s 30x30}

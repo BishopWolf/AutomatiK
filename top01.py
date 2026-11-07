@@ -8,7 +8,7 @@ header = read_header()
 
 
 txt01="""gap_x 380
-gap_y 50
+gap_y 19
 
 TEXT
 ${image img/gearwheels.png -p 0,0 -s 30x30}
