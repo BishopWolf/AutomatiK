@@ -21,7 +21,7 @@ txt01="""
 
 
 gap_x 15
-gap_y 199
+gap_y 186
 
 alignment top_right
 update_interval 1

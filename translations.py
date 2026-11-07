@@ -442,6 +442,15 @@ Ram = {
     "Portuguese" :    "Ram"
 }
 
+Zram = {
+    "English"   :    "Zram",
+    "French"    :    "Zram",
+    "German"    :    "Zram",
+    "Italian"   :    "Zram",
+    "Japanese"  :    "Zram",
+    "Portuguese" :    "Zram"
+}
+
 Swap = {
     "English"   :    "Swap partition",
     "French"    :    "Bloc Permutation",

@@ -41,7 +41,7 @@ pad_percents 2
 top_name_width 14
 minimum_size 320 100
 gap_x 15
-gap_y  409
+gap_y  378
 lua_load allcombined.lua
 
 #${lua gradbar {5, 218 "${memperc}" ,100, 80, 2, 10, 1, 0xFFFFFF, 0.25, 0x00FF00, 1, 0xFFFF00, 1, 0xFF0000, 1}}
@@ -52,7 +52,10 @@ ${offset 35}${font DejaVu Sans:size=12}${color Tan1}MEMOIRE ${color}${hr 2}${fon
 ${color}Mémoire vive${color}${alignr}$memmax 
 ${membar 11,292}
 ${color}$mem utilisés${alignr}${memfree} libres
-${color}Bloc Permutation${alignr}${swapmax}
-${swapbar 11,292}
-${color}$swap utilisés${alignr}${swapfree} libres
+${color}Zram${alignr}${execi 10 LC_ALL=C awk 'function f(k){return k<=0?"0B":k>=1048576?sprintf("%.2fGiB",k/1048576):k>=1024?sprintf("%.2fMiB",k/1024):sprintf("%dKiB",k)} NR>1&&$1~/zram/{s+=$3} END{print f(s)}' /proc/swaps}
+${execbar 11,292 LC_ALL=C awk 'NR>1&&$1~/zram/{s+=$3;u+=$4} END{print (s>0?int(u*100/s):0)}' /proc/swaps}
+${color}${execi 2 LC_ALL=C awk 'function f(k){return k<=0?"0B":k>=1048576?sprintf("%.2fGiB",k/1048576):k>=1024?sprintf("%.2fMiB",k/1024):sprintf("%dKiB",k)} NR>1&&$1~/zram/{u+=$4} END{print f(u)}' /proc/swaps} utilisés${alignr}${execi 2 LC_ALL=C awk 'function f(k){return k<=0?"0B":k>=1048576?sprintf("%.2fGiB",k/1048576):k>=1024?sprintf("%.2fMiB",k/1024):sprintf("%dKiB",k)} NR>1&&$1~/zram/{s+=$3;u+=$4} END{print f(s-u)}' /proc/swaps} libres
+${color}Bloc Permutation${alignr}${execi 10 LC_ALL=C awk 'function f(k){return k<=0?"0B":k>=1048576?sprintf("%.2fGiB",k/1048576):k>=1024?sprintf("%.2fMiB",k/1024):sprintf("%dKiB",k)} NR>1&&$1!~/zram/{s+=$3} END{print f(s)}' /proc/swaps}
+${execbar 11,292 LC_ALL=C awk 'NR>1&&$1!~/zram/{s+=$3;u+=$4} END{print (s>0?int(u*100/s):0)}' /proc/swaps}
+${color}${execi 2 LC_ALL=C awk 'function f(k){return k<=0?"0B":k>=1048576?sprintf("%.2fGiB",k/1048576):k>=1024?sprintf("%.2fMiB",k/1024):sprintf("%dKiB",k)} NR>1&&$1!~/zram/{u+=$4} END{print f(u)}' /proc/swaps} utilisés${alignr}${execi 2 LC_ALL=C awk 'function f(k){return k<=0?"0B":k>=1048576?sprintf("%.2fGiB",k/1048576):k>=1024?sprintf("%.2fMiB",k/1024):sprintf("%dKiB",k)} NR>1&&$1!~/zram/{s+=$3;u+=$4} END{print f(s-u)}' /proc/swaps} libres
 #

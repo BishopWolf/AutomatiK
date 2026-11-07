@@ -60,7 +60,7 @@ else:
 
 	txt01="""
 gap_x 15
-gap_y 587
+gap_y 595
 
 lua_load allcombined.lua
 
