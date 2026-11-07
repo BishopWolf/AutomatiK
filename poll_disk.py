@@ -2,7 +2,7 @@ import time, os
 
 #  /dev/sda1
 
-DiskSearchCommand="df -PTh 2>/dev/null | grep -E 'dev|media' | grep -E -v '^.*(tmp|proc|sys|var|pts|daemon|root|gvfs|efi).*$' | awk '{ print $1}'"
+DiskSearchCommand="df -PTh 2>/dev/null | grep -E 'dev|media' | grep -E -v '^.*(tmp|lib|proc|sys|var|pts|daemon|root|gvfs|efi).*$' | awk '{ print $1, $2, $7 }'"
 Partition_Name0=os.popen(DiskSearchCommand).read().split() # 
 
 
@@ -11,8 +11,7 @@ def job():
 	Partition_NameActuel=os.popen(DiskSearchCommand).read().split() # 
 	if Partition_NameActuel!= Partition_Name0:
 		os.system("python3 disk01.py")
-		#print Partition_NameActuel
-	Partition_Name0=os.popen(DiskSearchCommand).read().split() # 
+		Partition_Name0=Partition_NameActuel
 
 
 if __name__ == '__main__':

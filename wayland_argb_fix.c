@@ -3,16 +3,88 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
 #include <Imlib2.h>
 #include <cairo/cairo.h>
 #include <cairo/cairo-xlib.h>
 
 typedef int (*XSetForeground_fn)(Display *, GC, unsigned long);
+typedef Colormap (*XCreateColormap_fn)(Display *, Window, Visual *, int);
+typedef int (*XQueryColor_fn)(Display *, Colormap, XColor *);
+typedef void *(*XftDrawCreate_fn)(Display *, Drawable, Visual *, Colormap);
 typedef void (*imlib_render_fn)(int, int, int, int, int, int, int, int);
+
+static Visual *g_argb_visual = NULL;
+static Colormap g_argb_colormap = 0;
 
 __attribute__((constructor))
 static void conky_wayland_fix_init(void) {
     unsetenv("LD_PRELOAD");
+}
+
+Colormap XCreateColormap(Display *display, Window w, Visual *visual, int alloc) {
+    static XCreateColormap_fn real_XCreateColormap = NULL;
+    if (!real_XCreateColormap) {
+        real_XCreateColormap = (XCreateColormap_fn)dlsym(RTLD_NEXT, "XCreateColormap");
+    }
+    Colormap cmap = real_XCreateColormap(display, w, visual, alloc);
+    if (visual && cmap) {
+        g_argb_visual = visual;
+        g_argb_colormap = cmap;
+    }
+    return cmap;
+}
+
+int XQueryColor(Display *display, Colormap colormap, XColor *def_in_out) {
+    static XQueryColor_fn real_XQueryColor = NULL;
+    if (!real_XQueryColor) {
+        real_XQueryColor = (XQueryColor_fn)dlsym(RTLD_NEXT, "XQueryColor");
+    }
+    if (colormap == 0 && g_argb_colormap != 0) {
+        colormap = g_argb_colormap;
+    }
+    if (colormap == 0 && def_in_out) {
+        unsigned long p = def_in_out->pixel;
+        def_in_out->red = (unsigned short)(((p >> 16) & 0xff) * 0x0101);
+        def_in_out->green = (unsigned short)(((p >> 8) & 0xff) * 0x0101);
+        def_in_out->blue = (unsigned short)((p & 0xff) * 0x0101);
+        def_in_out->flags = DoRed | DoGreen | DoBlue;
+        return 1;
+    }
+    return real_XQueryColor(display, colormap, def_in_out);
+}
+
+void *XftDrawCreate(Display *dpy, Drawable drawable, Visual *visual, Colormap colormap) {
+    static XftDrawCreate_fn real_XftDrawCreate = NULL;
+    if (!real_XftDrawCreate) {
+        real_XftDrawCreate = (XftDrawCreate_fn)dlsym(RTLD_NEXT, "XftDrawCreate");
+    }
+    if (!visual && g_argb_visual) {
+        visual = g_argb_visual;
+    }
+    if (!colormap && g_argb_colormap) {
+        colormap = g_argb_colormap;
+    }
+    if (g_argb_visual && !imlib_context_get_visual()) {
+        imlib_context_set_visual(g_argb_visual);
+        if (g_argb_colormap) {
+            imlib_context_set_colormap(g_argb_colormap);
+        }
+    }
+    return real_XftDrawCreate(dpy, drawable, visual, colormap);
+}
+
+int XSetRegion(Display *display, GC gc, Region r) {
+    (void)display;
+    (void)gc;
+    (void)r;
+    return 1;
+}
+
+int XftDrawSetClip(void *draw, Region r) {
+    (void)draw;
+    (void)r;
+    return 1;
 }
 
 int XSetForeground(Display *display, GC gc, unsigned long foreground) {
@@ -35,6 +107,13 @@ void imlib_render_image_part_on_drawable_at_size(
     Display *dpy = imlib_context_get_display();
     Drawable drawable = imlib_context_get_drawable();
     Visual *visual = imlib_context_get_visual();
+    if (!visual && g_argb_visual) {
+        visual = g_argb_visual;
+        imlib_context_set_visual(g_argb_visual);
+        if (g_argb_colormap) {
+            imlib_context_set_colormap(g_argb_colormap);
+        }
+    }
     Imlib_Image img = imlib_context_get_image();
 
     if (!dpy || !drawable || !visual || !img ||

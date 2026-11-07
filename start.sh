@@ -20,6 +20,8 @@ fi
 for config in infofile clockfile memfile cpufile topfile diskfile netfile graphiccardfile; do
 	pkill -KILL -f "[c]onky .* -c .*/AutomatiK/${config}" 2>/dev/null || true
 done
+pkill -f "[p]ython3 poll_disk.py" 2>/dev/null || true
+pkill -f "[p]ython3 poll_day.py" 2>/dev/null || true
 
 mkdir -p ~/.fonts ~/.local/share/fonts
 cp fonts/*.*tf ~/.fonts/ 2>/dev/null

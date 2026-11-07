@@ -25,6 +25,14 @@ def read_header():
 
 
 def write_file(name, content):
-    """Write a generated conky config file."""
-    with open(name, "w", encoding="utf-8") as f:
+    """Write a generated conky config file atomically if changed."""
+    try:
+        with open(name, "r", encoding="utf-8") as f:
+            if f.read() == content:
+                return
+    except OSError:
+        pass
+    tmp_name = f".{name}.tmp.{os.getpid()}"
+    with open(tmp_name, "w", encoding="utf-8") as f:
         f.write(content)
+    os.replace(tmp_name, name)
